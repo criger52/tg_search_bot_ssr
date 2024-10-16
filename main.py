@@ -1,23 +1,33 @@
-from lev import Levenshtein_distance_algorithm as lsearch
-from lev import corrected_text as ct
+import asyncio
+import logging
+
+from aiogram import Bot, Dispatcher
+from aiogram.types import BotCommand
+from app.handler import router
+from config import TOKEN
+
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+
+async def main():
+    dp.include_routers(router)
+    await dp.start_polling(bot)
+
+
 if __name__ == '__main__':
-    text = '''Первое правило Бойцовского клуба: не упоминать о Бойцовском клубе. Второе правило Бойцовского клуба: не упоминать нигде о Бойцовском клубе. Третье правило Бойцовского клуба: боец крикнул «стоп», выдохся, отключился — бой окончен. Четвертое: в бою участвуют лишь двое. Пятое: один бой за вечер, друзья. Шестое: снимать обувь и рубашки. Седьмое: бой продолжается столько, сколько нужно. Восьмое и последнее: тот, кто впервые пришёл в клуб — примет бой'''
-
-    print(lsearch('Бойвцскйи клуб','Бойцовский клуб'))
-    print( lsearch('Бойцовскиw клб','Бойцовский клуб') * len('Бойцовский клуб') * 0.1)
-    print(lsearch('replace', 'delete') * len('Бойцовский клуб') * 0.1)
-
-    print(ct('Первое правило Бойцовского клуба: не упоминать о Бойцовском клубе. Второе правило Бойцовского клуба: не упоминать нигде о Бойцовском клубе','клуб'))
-
-    # if lsearch('Бойцовскиw клб','Бойцовский клуб') * len('Бойцовский клуб') * 0.1 <=4.5:
-    # тогда меняем найденное(неверное) на правильное
-    # если слово меньше то итераций для него тоже должно быть меньше
-    # мне нужно умножать рещультат на длину предложения
-    ct(text,'Бойцовский клуб')
+    logging.basicConfig(level=logging.INFO)
+    try:
+        print(52)
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print('Exit()')
 
 
-    # naive_search('Первое правило Бойцовского клуба: не упоминать о Бойцовском клубе. Второе правило Бойцовского клуба: не упоминать нигде о Бойцовском клубе','клуб')
-    #
-    # # Пример использования:
-    # print(find_occurrences(text, 'бой'))
+
+
+
+
+
+
 
